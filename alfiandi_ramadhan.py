@@ -5,11 +5,12 @@ from train_model import train_and_evaluate
 # Load dataset
 data = pd.read_csv("dataset_sentimen.csv")
 
-# Kolom sesuai dataset
-data.columns = ["review_text", "sentiment"]
+# Pastikan kolom sesuai
+if list(data.columns) != ["review_text", "sentiment"]:
+    data.columns = ["review_text", "sentiment"]
 
 # Preprocessing teks
-data["clean_text"] = data["review_text"].apply(clean_text)
+data["clean_text"] = data["review_text"].astype(str).apply(clean_text)
 
 X = data["clean_text"]
 y = data["sentiment"]
